@@ -1,18 +1,21 @@
 import React from 'react';
 import { Table, Container } from 'react-bootstrap';
 import UserData from '../../JsonData.json';
+import { connect } from 'react-redux';
+
 
 class TableView extends React.Component {
-  state = {
-    userData: ''
-  }
+  // state = {
+  //   userData: ''
+  // }
   componentDidMount() {
-    this.setState({ userData: UserData })
+    // this.setState({ userData: UserData })
+    this.props.onlogin();
   }
 
   render() {
     let Tdata;
-    if (this.state.userData) {
+    if (this.props.vicky) {
       Tdata = <Container>
         <Table style={{ marginTop: '50px' }} striped bordered hover>
           <thead>
@@ -26,15 +29,16 @@ class TableView extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.userData.map(key => {
+            {this.props.vicky.map(key => {
               return (
                 <tr key={key.id}>
+                  <td>{key.id}</td>
                   <td>{key.name}</td>
                   <td>{key.age}</td>
                   <td>{key.gender}</td>
                   <td>{key.email}</td>
                   <td>{key.phoneNo}</td>
-                  <td>@mdo</td>
+
                 </tr>)
             })}
           </tbody>
@@ -42,8 +46,20 @@ class TableView extends React.Component {
       </Container>
     }
     return (<>
-      {Tdata} 
+      {Tdata}
     </>)
   }
 }
-export default TableView;
+
+const mapStateToProps = state => {
+  return {
+    vicky: state.userDataa
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    onlogin: () => dispatch({type:'login',payload:UserData})
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TableView);

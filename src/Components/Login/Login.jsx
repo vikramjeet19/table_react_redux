@@ -1,7 +1,8 @@
 import React from 'react';
 import './Login.css';
 import { Button } from 'react-bootstrap';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class Login extends React.Component {
     state = {
@@ -15,7 +16,10 @@ class Login extends React.Component {
     }
     submitHandler = event => {
         event.preventDefault();
-        this.props.history.push('/table')
+        if (this.props.username === this.state.email && this.props.password === this.state.password){
+            this.props.history.push('/table')
+        }
+    else {alert('wrong username and password')}
 
     }
     render() {
@@ -34,4 +38,19 @@ class Login extends React.Component {
     }
 }
 
-export default withRouter(Login);
+
+const mapStateToProps = state => {
+    return {
+        username: state.username,
+        password: state.password
+    }
+}
+//   const mapDispatchToProps = dispatch => {
+//     return {
+//       onlogin: () => dispatch({type:'login',payload:UserData})
+//     };
+//   }
+
+
+
+export default withRouter(connect(mapStateToProps)(Login));
