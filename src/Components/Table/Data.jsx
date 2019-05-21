@@ -2,14 +2,11 @@ import React from 'react';
 import { Table, Container } from 'react-bootstrap';
 import UserData from '../../JsonData.json';
 import { connect } from 'react-redux';
+// import {Redirect} from 'react-router-dom';
 
 
 class TableView extends React.Component {
-  // state = {
-  //   userData: ''
-  // }
   componentDidMount() {
-    // this.setState({ userData: UserData })
     this.props.onlogin();
   }
 

@@ -17,6 +17,8 @@ class Login extends React.Component {
     submitHandler = event => {
         event.preventDefault();
         if (this.props.username === this.state.email && this.props.password === this.state.password){
+            let userdetails=this.state;
+            localStorage.setItem('data',JSON.stringify(userdetails))
             this.props.history.push('/table')
         }
     else {alert('wrong username and password')}
@@ -45,12 +47,5 @@ const mapStateToProps = state => {
         password: state.password
     }
 }
-//   const mapDispatchToProps = dispatch => {
-//     return {
-//       onlogin: () => dispatch({type:'login',payload:UserData})
-//     };
-//   }
-
-
 
 export default withRouter(connect(mapStateToProps)(Login));
